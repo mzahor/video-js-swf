@@ -109,8 +109,8 @@ package{
             }
 
             // Hard coding these in for now until we can come up with a better solution for 5.0 to avoid XSS.
-            _app.model.jsEventProxyName = 'videojs.Flash.onEvent';
-            _app.model.jsErrorEventProxyName = 'videojs.Flash.onError';
+            _app.model.jsEventProxyName = 'qhvideojs.Flash.onEvent';
+            _app.model.jsErrorEventProxyName = 'qhvideojs.Flash.onError';
 
             /*if(loaderInfo.parameters.eventProxyFunction != undefined){
                 _app.model.jsEventProxyName = loaderInfo.parameters.eventProxyFunction;
@@ -126,6 +126,10 @@ package{
 
             if(loaderInfo.parameters.preload != undefined && loaderInfo.parameters.preload != ""){
                 _app.model.preload = String(loaderInfo.parameters.preload);
+            }
+
+            if(loaderInfo.parameters.poster != undefined && loaderInfo.parameters.poster != ""){
+                _app.model.poster = String(loaderInfo.parameters.poster);
             }
 
             if(loaderInfo.parameters.src != undefined && loaderInfo.parameters.src != ""){
@@ -146,7 +150,7 @@ package{
             }
 
             // Hard coding this in for now until we can come up with a better solution for 5.0 to avoid XSS.
-            ExternalInterface.call('videojs.Flash.onReady', ExternalInterface.objectID);
+            ExternalInterface.call('qhvideojs.Flash.onReady', ExternalInterface.objectID);
 
             /*if(loaderInfo.parameters.readyFunction != undefined){
               try{
@@ -324,6 +328,9 @@ package{
                 case "preload":
                     _app.model.preload = String(pValue);
                     break;
+                case "poster":
+                    _app.model.poster = String(pValue);
+                    break;
                 case "src":
                     // same as when vjs_src() is called directly
                     onSrcCalled(pValue);
@@ -367,7 +374,7 @@ package{
           } else {
             cleanSrc = _app.model.cleanEIString(pSrc);
           }
-          ExternalInterface.call('videojs.MediaSource.open', cleanSrc, ExternalInterface.objectID);
+          ExternalInterface.call('qhvideojs.MediaSource.open', cleanSrc, ExternalInterface.objectID);
         }
 
         private function onSrcCalled(pSrc:* = ""):void{
@@ -379,7 +386,7 @@ package{
             // and provide a reference to this swf for passing data from the soure buffer
             openExternalMSObject(pSrc);
 
-            // ExternalInterface.call('videojs.MediaSource.sourceBufferUrls["' + pSrc + '"]', ExternalInterface.objectID);
+            // ExternalInterface.call('qhvideojs.MediaSource.sourceBufferUrls["' + pSrc + '"]', ExternalInterface.objectID);
           } else {
             _app.model.src = String(pSrc);
           }
